@@ -10,7 +10,7 @@ description: >-
   security, stock research, sector thesis.
 metadata:
   author: AG Capital
-  version: '1.0'
+  version: '1.1'
 ---
 
 # AG Capital Investment Analysis
