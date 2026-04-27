@@ -1,0 +1,22 @@
+{
+  "name": "perplexity-skills",
+  "owner": {
+    "name": "arkadiyg"
+  },
+  "plugins": [
+    {
+      "name": "ag-capital-analyst",
+      "source": "./ag-capital-analyst",
+      "description": "Multi-agent investment analysis team that produces buy/sell/hold recommendations with position sizing.",
+      "version": "1.1.0",
+      "author": {
+        "name": "AG Capital"
+      },
+      "keywords": [
+        "investing",
+        "stocks",
+        "finance"
+      ]
+    }
+  ]
+}

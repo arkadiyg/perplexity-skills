@@ -1,0 +1,16 @@
+{
+  "name": "ag-capital-analyst",
+  "version": "1.1.0",
+  "description": "Multi-agent investment analysis team: parallel analyst subagents (Buffett, Growth, Technical, Fundamentals, Sentiment) feed a Risk Manager that synthesizes a buy/sell/hold recommendation with position sizing.",
+  "author": {
+    "name": "AG Capital"
+  },
+  "keywords": [
+    "investing",
+    "stocks",
+    "finance",
+    "analysis",
+    "portfolio",
+    "multi-agent"
+  ]
+}
