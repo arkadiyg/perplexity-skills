@@ -1,1 +1,1 @@
-# perplexity-skills
+# ai-investment-analyst
