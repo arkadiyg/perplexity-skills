@@ -10,7 +10,7 @@ description: >-
   security, stock research, sector thesis.
 metadata:
   author: AG Capital
-  version: '1.2'
+  version: '1.3'
 ---
 
 # AG Capital Investment Analysis
@@ -85,9 +85,9 @@ Spawn the **Risk Manager** as a research subagent, passing the path to the conso
 
 Read the Risk Manager's assessment. Combine it with the individual analyst signals to produce the final investment decision. Weigh analyst signals by relevance — not all signals carry equal weight for every security type (e.g., Technical Analyst matters more for momentum trades; Buffett Analyst matters more for long-term holds).
 
-### Step 6 — Present to User
+### Step 6 — Save and Present the Final Synthesis
 
-Deliver the final recommendation using the output format below.
+Render the final recommendation using the **Output Format** below, then save it to `{WORKSPACE}/ag-analysis/{TICKER}/final-recommendation.md` so the full deliverable is persisted alongside the intermediate artifacts. After saving, present the same content to the user. (If `Write` is denied in Claude Code, present inline only — do not lose the synthesis.)
 
 ---
 
