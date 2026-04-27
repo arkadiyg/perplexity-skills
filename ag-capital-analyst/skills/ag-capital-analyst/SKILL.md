@@ -10,7 +10,7 @@ description: >-
   security, stock research, sector thesis.
 metadata:
   author: AG Capital
-  version: '1.1'
+  version: '1.2'
 ---
 
 # AG Capital Investment Analysis
@@ -30,12 +30,13 @@ Use this skill when the user:
 
 This skill runs in two environments. Resolve these placeholders to your runtime before executing the workflow:
 
-- **`{WORKSPACE}`** — the writable workspace directory.
+- **`{WORKSPACE}`** — the writable workspace directory. **Always pass an absolute path to subagents** (subagents launch fresh and may not inherit the orchestrator's `cwd`):
   - Anthropic Agent Skills runtime (Claude.ai): use `/home/user/workspace`.
-  - Claude Code: use the current working directory (or a `./ag-analysis/` subfolder of it).
+  - Claude Code: use an `ag-analysis/` subdirectory **inside the orchestrator's current working directory**. Subagents are sandbox-restricted to paths inside `cwd` — paths like `~/ag-analysis/` or `/tmp/...` will trigger Write-tool denials unless explicitly allowed in `.claude/settings.local.json`. Resolve `cwd` to its absolute form (e.g., `/Users/you/project`) and append `/ag-analysis/{TICKER}/` before passing the path to a subagent.
+- **Inline fallback** — In Claude Code, every subagent prompt should include an instruction along the lines of: *"If the Write tool is denied for the target path, return the full report content inline in your reply so the orchestrator can save it."* This makes the skill robust to sandbox restrictions and avoids losing work.
 - **Subagent spawn tool** — use whichever your environment provides:
   - Anthropic Agent Skills runtime: `run_subagent(subagent_type="research")`.
-  - Claude Code: the `Agent` tool with an appropriate `subagent_type` (e.g., `general-purpose` or `Explore`).
+  - Claude Code: the `Agent` tool with an appropriate `subagent_type` (e.g., `general-purpose`).
 - **Live-data tools** — search the web and fetch financial data using whatever is available (built-in finance tools, `WebSearch`, `WebFetch`, MCP servers). Never rely on training knowledge alone.
 
 ## Orchestration Workflow
@@ -55,6 +56,7 @@ Each analyst subagent receives:
 - The ticker symbol and company name
 - Their specific analyst role and instructions (copied from the role definitions below)
 - Instructions to produce a **standardized signal report** saved to a workspace file
+- (Claude Code) An **inline-fallback instruction**: if the Write tool is denied at the target path, return the full report content inline so the orchestrator can save it
 
 **File convention:** Each analyst saves their report to:
 `{WORKSPACE}/ag-analysis/{TICKER}/{role}-signal.md`
